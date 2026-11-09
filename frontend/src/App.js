@@ -319,7 +319,11 @@ function App() {
         navigateTo('/user/dashboard');
       }
     } catch (err) {
-      setAuthError(err.response?.data?.message || 'Invalid username or password.');
+      if (!err.response) {
+        setAuthError('Connection failed: Backend security service is offline. Please launch the backend server on port 8080.');
+      } else {
+        setAuthError(err.response?.data?.message || 'Invalid username or password.');
+      }
     } finally {
       setLoading(false);
     }
@@ -344,7 +348,11 @@ function App() {
       setCurrentUser(user);
       navigateTo('/admin/dashboard');
     } catch (err) {
-      setAdminLoginError(err.response?.data?.message || 'Invalid administrator credentials.');
+      if (!err.response) {
+        setAdminLoginError('Connection failed: Backend security service is offline. Please launch the backend server on port 8080.');
+      } else {
+        setAdminLoginError(err.response?.data?.message || 'Invalid administrator credentials.');
+      }
     } finally {
       setAdminLoading(false);
     }
@@ -369,7 +377,11 @@ function App() {
       setCurrentUser(user);
       navigateTo('/user/dashboard');
     } catch (err) {
-      setAuthError(err.response?.data?.message || 'Registration failed. Username or email may already be in use.');
+      if (!err.response) {
+        setAuthError('Connection failed: Backend security service is offline. Please launch the backend server on port 8080.');
+      } else {
+        setAuthError(err.response?.data?.message || 'Registration failed. Username or email may already be in use.');
+      }
     } finally {
       setLoading(false);
     }
